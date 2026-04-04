@@ -68,16 +68,14 @@
             </div>
         </div>
     </nav>
-    <div>
-        <input type="text" id="nev" placeholder="Név">
-        <input type="text" id="tipus" placeholder="Típus">
-        <select id="dij-statusz">
-            <option value="-1">Igen (-1)</option>
-            <option value="0">Nem (0)</option>
-        </select>
-        <button onclick="hozzaad()">Hozzáadás</button>
+    <div class="container mt-4">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr id="fejlec"></tr>
+        </thead>
+        <tbody id="tablazat-test"></tbody>
+    </table>
     </div>
-
     <table>
         <thead>
             <tr id="fejlec"></tr>
