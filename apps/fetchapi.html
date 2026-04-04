@@ -7,6 +7,24 @@
     <title>FETCHAPI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,12 +63,24 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h1>itt lesz a fetchapi code</h1>
+
+    <div>
+        <input type="number" id="nev" placeholder="Süti ID">
+        <input type="text" id="tipus" placeholder="Mentes (pl. G, L)">
+        <button onclick="hozzaad()">Hozzáadás</button>
     </div>
+
+    <table>
+        <thead>
+            <tr id="fejlec"></tr>
+        </thead>
+        <tbody id="tablazat-test"></tbody>
+    </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <script src="tartalom.json"></script>
+    <script src="fetch.js"></script>
 </body>
 
 </html>

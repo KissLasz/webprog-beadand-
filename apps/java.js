@@ -4,11 +4,9 @@ function inicializal() {
     const sorok = nyersAdat.trim().split('\n');
     const fejlec = sorok.shift().split('\t');
 
-    // Táblázat fejléce
     document.getElementById('fejlec').innerHTML =
         fejlec.map(cim => `<th>${cim}</th>`).join('') + "<th>Műveletek</th>";
 
-    // Szöveg -> Tömb objektumokkal
     adatokTomb = sorok.map(sor => {
         const [id, nev, tipus, dij] = sor.split('\t');
         return { id: parseInt(id), nev, tipus, dijazott: parseInt(dij) };
@@ -20,7 +18,6 @@ function inicializal() {
 function kiiratas() {
     const tbody = document.getElementById('tablazat-test');
 
-    // Itt történik a táblázatos kiírás
     tbody.innerHTML = adatokTomb.map((szemely, index) => `
         <tr class="${szemely.dijazott === -1 ? 'dijazott-sor' : ''}">
             <td>${szemely.id}</td>
@@ -56,19 +53,18 @@ function szerkeszt(index) {
     const s = adatokTomb[index];
 
     const ujNev = prompt("Adja meg az új nevet:", s.nev);
-    if (ujNev === null) return; // Mégse gombra ne történjen semmi
+    if (ujNev === null) return;
 
     const ujTipus = prompt("Adja meg az új típust:", s.tipus);
     if (ujTipus === null) return;
 
     const ujDij = confirm("Díjazott legyen? (OK = Igen, Mégse = Nem)");
 
-    // Frissítés a tömbben
     adatokTomb[index].nev = ujNev;
     adatokTomb[index].tipus = ujTipus;
     adatokTomb[index].dijazott = ujDij ? -1 : 0;
 
-    kiiratas(); // Táblázat újrarajzolása
+    kiiratas();
 }
 
 inicializal();
