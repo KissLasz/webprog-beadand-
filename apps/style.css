@@ -1,0 +1,34 @@
+.employee-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: auto;
+    width: 60%;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.employees-table {
+    margin: auto;
+    width: 80%;
+}
+
+table.list {
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0d6efd;
+    margin-right: 10px;
+}
+
+label.validation-error {
+    color: red;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.hide {
+    display: none;
+}
