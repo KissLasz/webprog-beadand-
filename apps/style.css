@@ -1,0 +1,23 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.validation-error {
+    color: #dc3545;
+    margin-top: 6px;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.hide {
+    display: none;
+}
+
+.form-action-buttons {
+    margin-top: 10px;
+}
+
+.dijazott-sor {
+    background-color: #e7f3ff !important;
+    font-weight: bold;
+}
