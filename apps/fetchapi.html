@@ -1,86 +1,81 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="hu">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FETCHAPI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
+    <title>Fetch API CRUD - Sütemények</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Menü</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="javascript.html">Java</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="react.html">React</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="spa.html">SPA</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="fetchapi.html">Fetch-API</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="axios.html">Axios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="oojs.html">OOJS</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript.html">Java</a></li>
+                    <li class="nav-item"><a class="nav-link" href="react.html">React</a></li>
+                    <li class="nav-item"><a class="nav-link" href="spa.html">SPA</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="fetchapi.html">Fetch-API</a></li>
+                    <li class="nav-item"><a class="nav-link" href="axios.html">Axios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="oojs.html">OOJS</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div>
-        <input type="number" id="nev" placeholder="Süti ID">
-        <input type="text" id="tipus" placeholder="Mentes (pl. G, L)">
-        <button onclick="hozzaad()">Hozzáadás</button>
+    <div class="container mt-4">
+        <h1 class="mb-4">Fetch API CRUD alkalmazás – Sütemények</h1>
+
+        <div class="card p-4 shadow-sm mb-4">
+            <form onsubmit="event.preventDefault(); onFormSubmit();">
+                <input type="hidden" id="sutiId">
+
+                <div class="mb-3">
+                    <label for="nev" class="form-label">Sütemény neve *</label>
+                    <label class="validation-error hide" id="nevValidationError">Ez a mező kötelező.</label>
+                    <input type="text" class="form-control" id="nev">
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipus" class="form-label">Típus</label>
+                    <input type="text" class="form-control" id="tipus">
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="dijazott">
+                    <label class="form-check-label" for="dijazott">Díjazott</label>
+                </div>
+
+                <div class="form-action-buttons">
+                    <input type="submit" value="Hozzáadás" class="btn btn-dark" id="submitButton">
+                </div>
+            </form>
+        </div>
+
+        <div class="card p-4 shadow-sm">
+            <table class="table table-bordered table-striped list" id="sutiList">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Név</th>
+                        <th>Típus</th>
+                        <th>Díjazott</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
-    <table>
-        <thead>
-            <tr id="fejlec"></tr>
-        </thead>
-        <tbody id="tablazat-test"></tbody>
-    </table>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script src="tartalom.json"></script>
     <script src="fetch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
