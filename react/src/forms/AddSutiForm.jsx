@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 
-const AddSutiForm = (props) => {
-  const initialFormState = {
-    id: null,
+const AddSutiForm = ({ addSuti }) => {
+  const [suti, setSuti] = useState({
     nev: "",
     tipus: "",
-    dijazott: false
-  };
-
-  const [suti, setSuti] = useState(initialFormState);
+    dijazott: "Nem"
+  });
 
   const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setSuti({
-      ...suti,
-      [name]: type === "checkbox" ? checked : value
-    });
-  };
-
-  const resetForm = () => {
-    setSuti(initialFormState);
+    const { name, value } = event.target;
+    setSuti({ ...suti, [name]: value });
   };
 
   return (
     <form
+      className="form-layout"
       onSubmit={(event) => {
         event.preventDefault();
-        if (!suti.nev || !suti.tipus) return;
-        props.addSuti(suti);
-        resetForm();
+
+        if (!suti.nev.trim() || !suti.tipus.trim()) {
+          alert("A név és a típus megadása kötelező.");
+          return;
+        }
+
+        addSuti({
+          ...suti,
+          nev: suti.nev.trim(),
+          tipus: suti.tipus.trim()
+        });
+
+        setSuti({
+          nev: "",
+          tipus: "",
+          dijazott: "Nem"
+        });
       }}
     >
       <label>Név</label>
@@ -37,7 +42,7 @@ const AddSutiForm = (props) => {
         name="nev"
         value={suti.nev}
         onChange={handleInputChange}
-        className="form-control mb-2"
+        placeholder="pl. Rigójancsi"
       />
 
       <label>Típus</label>
@@ -46,24 +51,22 @@ const AddSutiForm = (props) => {
         name="tipus"
         value={suti.tipus}
         onChange={handleInputChange}
-        className="form-control mb-2"
+        placeholder="pl. Csokoládés sütemény"
       />
 
-      <div className="form-check mb-3">
-        <input
-          type="checkbox"
-          name="dijazott"
-          checked={suti.dijazott}
-          onChange={handleInputChange}
-          className="form-check-input"
-          id="dijazottAdd"
-        />
-        <label className="form-check-label" htmlFor="dijazottAdd">
-          Díjazott
-        </label>
-      </div>
+      <label>Díjazott</label>
+      <select
+        name="dijazott"
+        value={suti.dijazott}
+        onChange={handleInputChange}
+      >
+        <option value="Igen">Igen</option>
+        <option value="Nem">Nem</option>
+      </select>
 
-      <button className="btn btn-success">Hozzáadás</button>
+      <button type="submit" className="btn btn-primary">
+        Új süti hozzáadása
+      </button>
     </form>
   );
 };
