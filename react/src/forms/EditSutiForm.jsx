@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 
-const EditSutiForm = (props) => {
-  const [suti, setSuti] = useState(props.currentSuti);
+const EditSutiForm = ({ currentSuti, updateSuti, cancelEditing }) => {
+  const [suti, setSuti] = useState(currentSuti);
 
   useEffect(() => {
-    setSuti(props.currentSuti);
-  }, [props.currentSuti]);
+    setSuti(currentSuti);
+  }, [currentSuti]);
 
   const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setSuti({
-      ...suti,
-      [name]: type === "checkbox" ? checked : value
-    });
+    const { name, value } = event.target;
+    setSuti({ ...suti, [name]: value });
   };
 
   return (
     <form
+      className="form-layout"
       onSubmit={(event) => {
         event.preventDefault();
-        props.updateSuti(suti.id, suti);
+
+        if (!suti.nev.trim() || !suti.tipus.trim()) {
+          alert("A név és a típus megadása kötelező.");
+          return;
+        }
+
+        updateSuti(suti.id, {
+          ...suti,
+          nev: suti.nev.trim(),
+          tipus: suti.tipus.trim()
+        });
       }}
     >
       <label>Név</label>
@@ -28,7 +36,6 @@ const EditSutiForm = (props) => {
         name="nev"
         value={suti.nev}
         onChange={handleInputChange}
-        className="form-control mb-2"
       />
 
       <label>Típus</label>
@@ -37,31 +44,31 @@ const EditSutiForm = (props) => {
         name="tipus"
         value={suti.tipus}
         onChange={handleInputChange}
-        className="form-control mb-2"
       />
 
-      <div className="form-check mb-3">
-        <input
-          type="checkbox"
-          name="dijazott"
-          checked={suti.dijazott}
-          onChange={handleInputChange}
-          className="form-check-input"
-          id="dijazottEdit"
-        />
-        <label className="form-check-label" htmlFor="dijazottEdit">
-          Díjazott
-        </label>
-      </div>
-
-      <button className="btn btn-primary me-2">Mentés</button>
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => props.setEditing(false)}
+      <label>Díjazott</label>
+      <select
+        name="dijazott"
+        value={suti.dijazott}
+        onChange={handleInputChange}
       >
-        Mégse
-      </button>
+        <option value="Igen">Igen</option>
+        <option value="Nem">Nem</option>
+      </select>
+
+      <div className="button-row">
+        <button type="submit" className="btn btn-success">
+          Módosítás mentése
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={cancelEditing}
+        >
+          Mégse
+        </button>
+      </div>
     </form>
   );
 };

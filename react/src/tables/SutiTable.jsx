@@ -1,39 +1,53 @@
 import React from "react";
 
-const SutiTable = (props) => (
-  <table className="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Név</th>
-        <th>Típus</th>
-        <th>Díjazott</th>
-        <th>Műveletek</th>
-      </tr>
-    </thead>
-    <tbody>
-      {props.sutik.length > 0 ? (
-        props.sutik.map((suti) => (
-          <tr key={suti.id}>
-            <td>{suti.nev}</td>
-            <td>{suti.tipus}</td>
-            <td>{suti.dijazott ? "Igen" : "Nem"}</td>
-            <td>
-              <button onClick={() => props.editRow(suti)}>
-                Módosítás
-              </button>
-              <button onClick={() => props.deleteSuti(suti.id)}>
-                Törlés
-              </button>
+const SutiTable = ({ sutik, editRow, deleteSuti }) => (
+  <div className="table-wrapper">
+    <table className="crud-table">
+      <thead>
+        <tr>
+          <th>Név</th>
+          <th>Típus</th>
+          <th>Díjazott</th>
+          <th>Műveletek</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sutik.length > 0 ? (
+          sutik.map((suti) => (
+            <tr key={suti.id}>
+              <td>{suti.nev}</td>
+              <td>{suti.tipus}</td>
+              <td>
+                <span className={suti.dijazott === "Igen" ? "badge badge-yes" : "badge badge-no"}>
+                  {suti.dijazott}
+                </span>
+              </td>
+              <td className="actions-cell">
+                <button
+                  className="btn btn-edit"
+                  onClick={() => editRow(suti)}
+                >
+                  Szerkesztés
+                </button>
+                <button
+                  className="btn btn-delete"
+                  onClick={() => deleteSuti(suti.id)}
+                >
+                  Törlés
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={4} className="no-data">
+              Nincs adat a táblázatban.
             </td>
           </tr>
-        ))
-      ) : (
-        <tr>
-          <td colSpan="4">Nincs süti</td>
-        </tr>
-      )}
-    </tbody>
-  </table>
+        )}
+      </tbody>
+    </table>
+  </div>
 );
 
 export default SutiTable;
